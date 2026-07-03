@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-code-bg: var(--code-bg);
+  --color-code-text: var(--code-text);
+  
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base themes using CSS variables */
+:root {
+  /* Light Theme (Default) - Apple/Stripe inspired */
+  --background: #fbfbfd;
+  --foreground: #1d1d1f;
+  --card: #ffffff;
+  --card-foreground: #1d1d1f;
+  --popover: #ffffff;
+  --popover-foreground: #1d1d1f;
+  --primary: #0071e3;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f7;
+  --secondary-foreground: #1d1d1f;
+  --muted: #86868b;
+  --muted-foreground: #6e6e73;
+  --accent: #5151e5;
+  --accent-foreground: #ffffff;
+  --destructive: #ff3b30;
+  --destructive-foreground: #ffffff;
+  --border: #e5e5e7;
+  --input: #e5e5e7;
+  --ring: #0071e3;
+  --code-bg: #f5f5f7;
+  --code-text: #c41c76;
 }
 
-body {
-  background: var(--background);
+[data-theme="dark"] {
+  /* Dark Theme - Sleek dark, Vercel/Linear style */
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  --card: #18181b;
+  --card-foreground: #f4f4f5;
+  --popover: #18181b;
+  --popover-foreground: #f4f4f5;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #f4f4f5;
+  --muted: #71717a;
+  --muted-foreground: #a1a1aa;
+  --accent: #a78bfa;
+  --accent-foreground: #09090b;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #6366f1;
+  --code-bg: #111113;
+  --code-text: #f472b6;
+}
+
+[data-theme="reading"] {
+  /* Reading Theme - Premium warm sepia book style */
+  --background: #fcf6e8;
+  --foreground: #3c2f2f;
+  --card: #f5ecda;
+  --card-foreground: #3c2f2f;
+  --popover: #f5ecda;
+  --popover-foreground: #3c2f2f;
+  --primary: #8b5a2b;
+  --primary-foreground: #ffffff;
+  --secondary: #eddcb9;
+  --secondary-foreground: #3c2f2f;
+  --muted: #9d8262;
+  --muted-foreground: #7d6548;
+  --accent: #c66c3a;
+  --accent-foreground: #ffffff;
+  --destructive: #9b2c2c;
+  --destructive-foreground: #ffffff;
+  --border: #eddcb9;
+  --input: #eddcb9;
+  --ring: #8b5a2b;
+  --code-bg: #f0e2c8;
+  --code-text: #b33939;
+}
+
+[data-theme="high-contrast"] {
+  /* High Contrast Theme - High visibility black & white & yellow */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --primary: #ffff00;
+  --primary-foreground: #000000;
+  --secondary: #111111;
+  --secondary-foreground: #ffffff;
+  --muted: #ffffff;
+  --muted-foreground: #ffffff;
+  --accent: #00ff00;
+  --accent-foreground: #000000;
+  --destructive: #ff0000;
+  --destructive-foreground: #ffffff;
+  --border: #ffffff;
+  --input: #ffffff;
+  --ring: #ffff00;
+  --code-bg: #000000;
+  --code-text: #00ff00;
+}
+
+/* Large Font scaling mode applied to html tag */
+html[data-font-size="large"] {
+  font-size: 19px; /* Scales rem layouts upwards for accessibility */
+}
+
+/* General Layout Styles */
+html, body {
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Code layout scrollbars style */
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+pre::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
