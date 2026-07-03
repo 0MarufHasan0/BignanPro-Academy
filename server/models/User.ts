@@ -56,7 +56,7 @@ const UserSchema = new Schema<IUser>(
 );
 
 // Middleware to calculate and update learning streaks upon save
-UserSchema.pre("save", function (next) {
+UserSchema.pre("save", function (this: any, next: any) {
   if (this.isModified("lastActiveDate") && this.lastActiveDate) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
